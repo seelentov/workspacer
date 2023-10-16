@@ -3,13 +3,16 @@ import { UserSignUp } from '../types/user'
 export class SIGN_ERRORS {
 	static NAME = 'Введите имя пользователя'
 	static EMAIL = 'Введите корректный E-mail'
+	static EMAIL_REUSE = 'Этот E-mail уже зарегистрирован'
 	static PASS = 'Пароль должен быть более 6-ти символов'
 	static CHECK_PASS = 'Несовпадение подтверждения с паролем'
 	static POSITION = 'Введите должность'
 	static BIRTH = 'Некорректная дата рождения'
+  static DENIED = 'Неверный логин или пароль'
 }
 
 export const signUpValidate = (inputs: UserSignUp): SIGN_ERRORS[] => {
+  
 	const errors: SIGN_ERRORS[] = []
 	if (inputs.name === '') {
 		errors.push(SIGN_ERRORS.NAME)
@@ -35,8 +38,8 @@ export const signUpValidate = (inputs: UserSignUp): SIGN_ERRORS[] => {
 	if (inputs.birth === '' || date > Date.now()) {
 		errors.push(SIGN_ERRORS.BIRTH)
 	}
-
+  console.log(errors)
 	return errors
 }
 
-const emailRegex = /^\S+@\S+\.\S+$/gi
+const emailRegex = /^\S+@\S+\.\S+/i

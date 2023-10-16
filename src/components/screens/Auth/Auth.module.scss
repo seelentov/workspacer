@@ -17,7 +17,21 @@
   * {
     color: rgb(158, 0, 0) !important
   }
-  *::placeholder{
-  color: rgb(158, 0, 0) !important
+  p{
+  display: block !important;
+
 }
+}
+
+.invalid{
+  position: absolute;
+  display: none;
+  font-size: 11px;
+}
+
+.form{
+  width: 70%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }

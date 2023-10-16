@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { UserStore } from '../../types/user'
 import { clearCookieLogin, setCookieLogin } from '../../service/cookieLogin'
+import { UserStore } from '../../types/user'
 
 const initialState: UserStore = {
 	token: '',
@@ -12,14 +12,14 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, { payload: inputs }) => {
-      const user = new UserStore(inputs)
+			const user = new UserStore(inputs)
 			state = user
-      setCookieLogin(user)
+			setCookieLogin(user)
 		},
 		logout: state => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			state = initialState
-      clearCookieLogin()
+			clearCookieLogin()
 		},
 	},
 })
