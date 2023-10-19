@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSelector } from 'react-redux'
 
 interface IRootState {
   [key: string]: {
-    [key: string]: unknown
+    [key: string]: any
   };
 }
 

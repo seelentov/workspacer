@@ -2,6 +2,7 @@
 
 }
 .line{
+  z-index: 5;
   display: flex;
   align-items: center;
   width: 100%;
@@ -71,6 +72,7 @@ hr{
 }
 
 .nav{
+  z-index: 5;
   width: 200px;
   transition: all 0.2s ease-in-out;
   display: flex;
@@ -114,4 +116,13 @@ hr{
   border: black 1px solid;
   border-radius: 3px;
   overflow-y: scroll;
+}
+
+.wrapper{
+  position: absolute;
+  z-index: 3;
+  background: #0000008c;
+  width: 100vw;
+  height: 100vh;
+  transition: all 0.2s ease-in-out;
 }

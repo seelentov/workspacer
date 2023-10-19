@@ -1,0 +1,31 @@
+.page{
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.image{
+  height: 100%;
+  margin: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  tr{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  tr:nth-of-type(1){
+    cursor: pointer;
+    &:hover{
+      color: green
+    }
+  }
+  table{
+    width: 70%;
+  }
+}
