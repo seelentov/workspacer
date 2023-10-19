@@ -41,7 +41,7 @@ export const updateData: UpData = async (
 
 export const addToData: UpData = async (coll, item, props) => {
 	return new Promise((resolve, reject) => {
-		setDoc(doc(collection(db, coll), item), props)
+		setDoc(doc(collection(db, coll), item), {...props})
 			.then(() => {
 				resolve()
 			})

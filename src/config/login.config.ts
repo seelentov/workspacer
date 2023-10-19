@@ -38,7 +38,6 @@ export const signUpValidate = (inputs: UserSignUp): SIGN_ERRORS[] => {
 	if (inputs.birth === '' || date > Date.now()) {
 		errors.push(SIGN_ERRORS.BIRTH)
 	}
-  console.log(errors)
 	return errors
 }
 

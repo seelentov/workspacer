@@ -1,8 +1,13 @@
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
 import { MDBBtn, MDBInput } from 'mdb-react-ui-kit'
 import { FC, FormEvent, useCallback, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SIGN_ERRORS, signUpValidate } from '../../../config/login.config'
-import { THEME } from '../../../service/theme.config'
-import { UserSignUp } from '../../../types/user'
+import { ROUTING } from '../../../config/routing.config'
+import { THEME } from '../../../config/theme.config'
+import { useActions } from '../../../hooks/useActions'
+import { addToData } from '../../../store/api/firebase/endpoints'
+import { UserNew, UserSignUp } from '../../../types/user'
 import styles from './Auth.module.scss'
 
 export const SignUp: FC<{
@@ -11,18 +16,55 @@ export const SignUp: FC<{
 	const [inputs, setInputs] = useState<UserSignUp>(
 		new UserSignUp(UserSignUp.EMPTY)
 	)
-	const [errors, setErrors] = useState<SIGN_ERRORS[]>()
+	const [errors, setErrors] = useState<SIGN_ERRORS[]>([])
+	const navigate = useNavigate()
+	const { setUser } = useActions()
 
 	const handleSubmit = useCallback(
 		(e: FormEvent) => {
 			e.preventDefault()
-
+			setLoading(true)
 			const errorsArr: SIGN_ERRORS[] = signUpValidate(inputs)
 			setErrors(errorsArr)
 
-			if (errorsArr) {
+			if (errorsArr.length > 1) {
+				console.log(errorsArr)
+				setLoading(false)
 				return
 			}
+
+			const auth = getAuth()
+			createUserWithEmailAndPassword(auth, inputs.email, inputs.password)
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				.then((userCredential: any) => {
+					const { user } = userCredential
+					setUser({
+						id: user.uid,
+						token: user.accessToken,
+					})
+					addToData(
+						'users',
+						user.uid,
+						new UserNew({
+							id: user.uid,
+							email: inputs.email,
+							name: inputs.name,
+							birth: inputs.birth,
+							position: inputs.position,
+						})
+					)
+				})
+				.then(() => {
+					setLoading(false)
+					navigate(ROUTING.WORKSPACE)
+				})
+				.catch(e => {
+					console.log(e)
+					setLoading(false)
+					if (e.message.includes('email-already-in-use')) {
+						setErrors([SIGN_ERRORS.EMAIL_REUSE])
+					}
+				})
 		},
 		[inputs]
 	)

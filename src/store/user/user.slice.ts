@@ -12,13 +12,19 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {
 		setUser: (state, { payload: inputs }) => {
-			const user = new UserStore(inputs)
-			state = user
+			state.token = inputs.token
+			state.id = inputs.id
+
+      const user = new UserStore(inputs)
 			setCookieLogin(user)
 		},
+    setOnlyUser: (state, { payload: inputs }) => {
+			state.token = inputs.token
+			state.id = inputs.id
+		},
 		logout: state => {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			state = initialState
+			state.token = ''
+			state.id = ''
 			clearCookieLogin()
 		},
 	},

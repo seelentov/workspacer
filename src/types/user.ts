@@ -1,3 +1,5 @@
+import { Task } from "./tasks"
+
 export class UserStore {
 	id: string | ''
 	token: string | ''
@@ -60,7 +62,7 @@ export class UserAccount {
 	img: string
 	id: string
 	email: string
-	birth: number
+	birth: string
 	position: string
 
 	static EMPTY = {
@@ -79,5 +81,35 @@ export class UserAccount {
 		this.email = dt.email
 		this.birth = dt.birth
 		this.position = dt.position
+	}
+}
+
+
+export class UserNew {
+	name: string
+	img?: string | '/src/assets/no-img-account.jpg'
+	id: string
+	email: string
+	birth: string
+	position: string
+  tasks?: Task[] | []
+
+	static EMPTY = {
+		name: '',
+		img: '',
+		id: '',
+		email: '',
+		birth: '',
+		position: '',
+	}
+  
+	constructor(dt: UserNew) {
+		this.name = dt.name
+		this.img = '/src/assets/no-img-account.jpg'
+		this.id = dt.id
+		this.email = dt.email
+		this.birth = dt.birth
+		this.position = dt.position
+    this.tasks = []
 	}
 }

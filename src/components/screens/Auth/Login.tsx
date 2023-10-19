@@ -4,9 +4,9 @@ import { FC, FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SIGN_ERRORS } from '../../../config/login.config'
 import { ROUTING } from '../../../config/routing.config'
+import { THEME } from '../../../config/theme.config'
 import { useActions } from '../../../hooks/useActions'
-import { THEME } from '../../../service/theme.config'
-import { UserLogin, UserStore } from '../../../types/user'
+import { UserLogin } from '../../../types/user'
 import styles from './Auth.module.scss'
 
 export const Login: FC<{
@@ -19,7 +19,7 @@ export const Login: FC<{
 
 	const navigate = useNavigate()
 	const { setUser } = useActions()
-  
+
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault()
 
@@ -31,14 +31,17 @@ export const Login: FC<{
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			.then((UserCredential: any) => {
 				const { user } = UserCredential
-				setUser(new UserStore({ id: user.uid, token: user.accessToken }))
+				setUser({
+					id: user.uid,
+					token: user.accessToken,
+				})
 			})
 			.then(() => {
-				navigate(ROUTING.MAIN)
-        setLoading(false)
+				setLoading(false)
+				navigate(ROUTING.WORKSPACE)
 			})
-			.catch((e) => {
-        console.error(e)
+			.catch(e => {
+				console.error(e)
 				setDenied(true)
 				setLoading(false)
 			})
