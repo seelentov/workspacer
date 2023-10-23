@@ -64,6 +64,7 @@ export class UserAccount {
 	email: string
 	birth: string
 	position: string
+  tasks: string[]
 
 	static EMPTY = {
 		name: '',
@@ -81,10 +82,12 @@ export class UserAccount {
 		this.email = dt.email
 		this.birth = dt.birth
 		this.position = dt.position
+		this.tasks = dt.tasks
 	}
 }
 
 
+export type UserProfileInfo = 'name' | 'birth' | 'position' | 'email' | 'id'
 export class UserNew {
 	name: string
 	img?: string | '/src/assets/no-img-account.jpg'

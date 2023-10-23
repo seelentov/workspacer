@@ -88,7 +88,6 @@ hr{
 .logo{
   font-size: 30px;
   color: white;
-  font-family: "Montserrat";
   font-weight: 800;
   margin: 0 20px;
 }
@@ -125,4 +124,10 @@ hr{
   width: 100vw;
   height: 100vh;
   transition: all 0.2s ease-in-out;
+}
+
+.headerSearch{
+  @media(max-width: 510px){
+    display: none;
+  }
 }

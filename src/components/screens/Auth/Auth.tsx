@@ -1,4 +1,4 @@
-import { MDBContainer } from 'mdb-react-ui-kit'
+import { MDBCard, MDBContainer } from 'mdb-react-ui-kit'
 import { useState } from 'react'
 import { Logo } from '../../ui/Logo/Logo'
 import styles from './Auth.module.scss'
@@ -10,15 +10,17 @@ export const Auth = () => {
 	const [page, setPage] = useState<'login' | 'signUp'>()
   const [loading, setLoading] = useState<boolean>(false)
 	return (
-    <>
+    <MDBCard>
       {loading && <Loading/>}
 			<MDBContainer
 				className={'p-3 d-flex flex-column' + ' ' + styles.page}
 				style={{ display: 'flex', alignItems: 'center' }}
 			>
         <Logo />
+        
 				{page === 'login' ? <Login setLoading={setLoading} /> : <SignUp  setLoading={setLoading}/>}
-				<p
+				
+        <p
 					onClick={() => setPage(page === 'login' ? 'signUp' : 'login')}
 					className={styles.switchPage + ' text-center'}
 				>
@@ -27,6 +29,6 @@ export const Auth = () => {
 						: 'Уже есть аккаунт? Войти'}
 				</p>
 			</MDBContainer>
-      </>
+      </MDBCard>
 	)
 }

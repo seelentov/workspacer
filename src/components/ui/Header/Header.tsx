@@ -9,7 +9,6 @@ export interface IHeaderProps {}
 
 export const Header: FC<IHeaderProps> = () => {
 	const [open, setOpen] = useState<boolean>(false)
-
 	return (
 		<header className={styles.main}>
 			<div
@@ -20,7 +19,9 @@ export const Header: FC<IHeaderProps> = () => {
 			<div className={styles.line} style={{ background: THEME.ALT_COLOR }}>
 				<Navbar open={open} setOpen={setOpen} menu={MENU} />
 				<HeaderLogo />
+        <div className={styles.headerSearch}>
 				<HeaderSearch />
+        </div>
 			</div>
 		</header>
 	)

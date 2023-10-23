@@ -6,6 +6,7 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { ROUTING } from './routing.config';
+import { Task } from '../types/tasks';
 
 export type MenuItem = {
   name: string,
@@ -22,3 +23,11 @@ export const MENU: MenuItem[] = [
   {name: 'Profile', href: ROUTING.PROFILE, icon: <AccountBoxIcon/>},
   {name: 'Search', href: ROUTING.SEARCH, icon: <SearchIcon/>},
 ]
+
+
+export const filter = (data: Task[], input: string | '') => {
+  return data?.filter((e: Task) => {
+    if (!input) return
+    return e.name.includes(input)
+  })
+}

@@ -110,10 +110,10 @@ export const getData: SingleData = async (coll, item) => {
 	})
 }
 
-export const subscribeSomeData = async (
+export const subscribeSomeData = async <T>(
 	coll: string,
 	condition: FBCondition,
-	callback: (arg0: object[]) => void
+	callback: (arg0: T) => void
 ) => {
 	return onSnapshot(
 		query(
@@ -128,14 +128,14 @@ export const subscribeSomeData = async (
 			if (!result) {
 				console.log(`Коллекции ${coll} не существует`)
 			}
-			callback(result)
+			callback(result as T)
 		}
 	)
 }
 
-export const subscribeColl = async (
+export const subscribeColl = async <T>(
 	coll: string,
-	callback: (arg0: object[]) => void
+	callback: (arg0: T) => void
 ) => {
 	return onSnapshot(query(collection(db, coll)), querySnapshot => {
 		const result: object[] = []
@@ -145,14 +145,14 @@ export const subscribeColl = async (
 		if (!result) {
 			console.log(`Коллекции ${coll} не существует`)
 		}
-		callback(result)
+		callback(result as T)
 	})
 }
 
-export const subscribeData = async (
+export const subscribeData = async <T>(
 	coll: string,
 	item: string,
-	callback: (arg0: object) => void
+	callback: (arg0: T) => void
 ) => {
 	const unsub = onSnapshot(
 		doc(db, coll, item),
@@ -161,7 +161,7 @@ export const subscribeData = async (
 			if (!doc.exists()) {
 				console.log(`Объект ${item} отсутствует`)
 			} else {
-				callback(doc.data())
+				callback(doc.data() as T)
 			}
 		}
 	)

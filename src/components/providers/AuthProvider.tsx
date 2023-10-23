@@ -3,7 +3,7 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 import { useActions } from '../../hooks/useActions'
 import { useAuth } from '../../hooks/useAuth'
 import { Auth } from '../screens/Auth/Auth'
-//import { clearCookieLogin } from '../service/cookieLogin'; clearCookieLogin()
+//import { clearCookieLogin } from '../../service/cookieLogin'; clearCookieLogin()
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 	const user = Cookies.get('id')

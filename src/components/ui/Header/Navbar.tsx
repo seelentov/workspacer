@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { MenuItem } from '../../../config/header.config'
 import { THEME } from '../../../config/theme.config'
 import styles from './Header.module.scss'
+import cn from 'classnames';
 
 export interface INavbarProps {
 	menu: MenuItem[]
@@ -15,7 +16,7 @@ export const Navbar: FC<INavbarProps> = ({ menu, open, setOpen }) => {
 		<div onClick={() => setOpen(!open)}>
 			<NavbarButton open={open} setOpen={setOpen} />
 			<nav
-				className={styles.nav + ' ' + (open && styles.burgerMenuOpen)}
+				className={cn(styles.nav, (open && styles.burgerMenuOpen))}
 				style={{ background: THEME.ALT_COLOR }}
 			>
 				<div className={styles.navTop}></div>

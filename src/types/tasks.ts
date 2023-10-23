@@ -1,7 +1,10 @@
+import { Statuses } from "../config/tasks.config"
+
 export class Task {
   public id: string
   public name: string
   public project: string
+  public status: Statuses
   public createTime: number
   public endTime: number
   public timing: number
@@ -14,6 +17,7 @@ export class Task {
     this.id = dt.id
     this.name = dt.name
     this.project = dt.project
+    this.status = dt.status
     this.createTime = dt.createTime
     this.endTime = dt.endTime
     this.timing = dt.timing
@@ -62,5 +66,28 @@ export class TaskNew {
     this.performers = dt.performers
     this.initiator = dt.initiator
     this.comments = []
+  }
+}
+
+
+export class Project {
+  public id: string
+  public name: string
+  public tasks: string[]
+  public createTime: number
+  public endTime: number
+  public text: string
+  public initiator: string
+  public comments: TaskComment[] | []
+
+  constructor(dt: Project){
+    this.id = dt.id
+    this.name = dt.name
+    this.tasks = dt.tasks
+    this.createTime = dt.createTime
+    this.endTime = dt.endTime
+    this.text = dt.text
+    this.initiator = dt.initiator
+    this.comments = dt.comments
   }
 }

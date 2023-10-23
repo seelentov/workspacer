@@ -16,6 +16,7 @@ export const App = () => {
 						<Routes>
 							<Route path={ROUTING.WORKSPACE} element={<Workspace />} />
 							<Route path={ROUTING.PROFILE} element={<Profile />} />
+							<Route path={ROUTING.PROFILE + ':id'} element={<Profile />} />
 						</Routes>
 					</Wrapper>
 				</AuthProvider>

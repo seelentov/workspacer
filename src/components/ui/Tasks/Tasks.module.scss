@@ -1,0 +1,66 @@
+.taskItemImg{
+  margin: auto 0;
+  margin-right: 20px;
+  overflow: hidden;
+  min-width: 70px !important;
+  width: 70px !important;
+  height: 70px;
+  display: flex;
+  border-radius: 10px;
+  outline: 5px white solid;
+  outline-offset: -4px;
+  img{
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%
+  }
+}
+.taskItemName{
+}
+.taskList{
+  display: grid;
+  gap: 10px;
+  @media(max-width: 767px){
+    grid-template-columns: 1fr !important
+  }
+}
+.taskItem{
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  *{
+    width: 100%;
+    color: black;
+    min-width: 10px;
+  }
+  p{
+    
+    text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+  }
+}
+.taskItemBottom{
+  @media(max-width: 767px){
+    flex-direction: column;
+  }
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.taskItemInfo{
+  height: 100%;
+}
+
+.status{
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  min-width: 137px;
+}
+
+.taskItemProject{
+  background: rgb(182, 182, 182);padding: 0 5px;
+  border-radius: 10px;
+}

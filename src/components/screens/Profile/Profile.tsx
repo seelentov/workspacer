@@ -4,9 +4,12 @@ import { useParams } from 'react-router-dom'
 import { useStoreBy } from '../../../hooks/useStoreBy'
 import { copyToClipboard } from '../../../service/copyToCopiboard'
 import { subscribeData } from '../../../store/api/firebase/endpoints'
+import { Task } from '../../../types/tasks'
 import { UserAccount } from '../../../types/user'
 import { Loading } from '../../ui/Loading/Loading'
 import styles from './Profile.module.scss'
+import { TaskList } from '../../ui/Tasks/TaskList'
+import { tasks } from '../../../test.data'
 
 export interface IProfileProps {}
 
@@ -18,7 +21,6 @@ export const Profile: FC<IProfileProps> = () => {
 	useEffect(() => {
 		const userId: string = id ? id : thisUser.id
 		subscribeData('users', userId, (r: UserAccount) => {
-			if (!r) return
 			setUser(r)
 		})
 	}, [id])
@@ -28,22 +30,22 @@ export const Profile: FC<IProfileProps> = () => {
 			{user ? (
 				<div className={styles.page}>
 					<MDBRow>
-						<MDBCol>
+						<MDBCol md='6'>
 							<MDBCard style={{ minHeight: '100%' }}>
 								<img src={user?.img} className={styles.image} alt={user?.img} />
 							</MDBCard>
 						</MDBCol>
-						<MDBCol>
+						<MDBCol md='6'>
 							<ProfileInfo user={user} />
 						</MDBCol>
 					</MDBRow>
 					<MDBRow>
-          <MDBCol>
-							<MDBCard style={{ minHeight: '100%' }}>
-								
+						<MDBCol>
+							<MDBCard style={{ minHeight: '100%', padding: '10px' }}>
+								<ProfileTasks tasksID={user.tasks}/>
 							</MDBCard>
 						</MDBCol>
-          </MDBRow>
+					</MDBRow>
 				</div>
 			) : (
 				<Loading />
@@ -65,22 +67,18 @@ const ProfileInfo: FC<{ user: UserAccount }> = ({ user }) => {
 								user.id.slice(user.id.length - 4, user.id.length)}
 						</td>
 					</tr>
-					<hr />
 					<tr>
 						<th>Имя:</th>
 						<td>{user.name}</td>
 					</tr>
-					<hr />
 					<tr>
 						<th>E-mail:</th>
 						<td>{user.email}</td>
 					</tr>
-					<hr />
 					<tr>
 						<th>Дата рождения:</th>
 						<td>{user.birth}</td>
 					</tr>
-					<hr />
 					<tr>
 						<th>Должность:</th>
 						<td>{user.position}</td>
@@ -89,4 +87,22 @@ const ProfileInfo: FC<{ user: UserAccount }> = ({ user }) => {
 			</table>
 		</MDBCard>
 	)
+}
+
+export interface IProfileTasksProps {
+	tasksID: string[],
+}
+
+const ProfileTasks: FC<IProfileTasksProps> = ({ tasksID }) => {
+	const [data, setData] = useState<Task[]>()
+
+	useEffect(() => {
+    //subscribeSomeData('tasks', ['id', 'in', tasksID], (data: Task[])=>{
+      setData(tasks)
+    //})
+  }, [tasksID])
+
+	return <div className={styles.profileTasks}>
+    {data && <TaskList data={data.filter(e=>e.status !== 'DONE')} grid={2}/>}
+  </div>
 }
