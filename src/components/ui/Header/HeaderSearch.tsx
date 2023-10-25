@@ -9,10 +9,7 @@ import { TaskItemMin } from '../Tasks/TaskItemMin'
 import { UserMin } from '../User/UserMin'
 import styles from './Header.module.scss'
 
-type IFilterFunc = <T extends IProject | ITask | IUserAccount>(
-	data: T[],
-	input: string
-) => T[]
+type IFilterFunc = <T>(data: T[], input: string) => T[]
 
 export const HeaderSearch = () => {
 	const [input, setInput] = useState<string | ''>('')
@@ -91,17 +88,24 @@ const HeaderSearchBlock: FC<{
 	return (
 		<div style={{ padding: '10px' }}>
 			<h5>{dataType.toUpperCase()}</h5>
-			{data && dataType === 'tasks'
-				? filterFunc(data, filterInput)?.map((item: ITask, key) => (
-						<TaskItemMin key={key} task={item} />
-				))
-				: dataType === 'users'
-				? filterFunc(data, filterInput)?.map((item: IUserAccount, key) => (
-						<UserMin key={key} user={item} />
-				))
-				: filterFunc(data, filterInput)?.map((item: IProject, key) => (
-						<ProjectItemMin key={key} project={item} />
-				))}
+			{data &&
+				dataType === 'tasks' &&
+				filterFunc(data, filterInput).map((item: ITask, key) => {
+					if (!item) return null
+					return <TaskItemMin key={key} task={item} />
+				})}
+			{data &&
+				dataType === 'users' &&
+				filterFunc(data, filterInput).map((item: IUserAccount, key) => {
+					if (!item) return null
+					return <UserMin key={key} user={item} />
+				})}
+			{data &&
+				dataType === 'projects' &&
+				filterFunc(data, filterInput).map((item: IProject, key) => {
+					if (!item) return null
+					return <ProjectItemMin key={key} project={item} />
+				})}
 		</div>
 	)
 }

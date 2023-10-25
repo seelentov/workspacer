@@ -1,4 +1,5 @@
 import {
+  CSSProperties,
 	Dispatch,
 	FC,
 	SetStateAction,
@@ -25,7 +26,7 @@ export interface ITaskFilterProps {
 export const TaskFilter: FC<ITaskFilterProps> = ({
 	filterProps,
 	setFilter,
-  type
+	type,
 }) => {
 	const startDate =
 		filterProps.fromTime === null ? null : new Date(filterProps.fromTime)
@@ -33,8 +34,8 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 		filterProps.toTime === null ? null : new Date(filterProps.toTime)
 
 	const ref = useRef()
-
-	const inputsStyles = {
+ 
+	const inputsStyles: CSSProperties = {
 		padding: '0 10px',
 		textAlign: 'left',
 		color: '#000000',
@@ -76,9 +77,10 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 			...provided,
 			...inputsStyles,
 			padding: '0',
-			background: state.selectProps.value && state.selectProps.value.value !== 'ALL'
-				? state.selectProps.value.color
-				: 'white',
+			background:
+				state.selectProps.value && state.selectProps.value.value !== 'ALL'
+					? state.selectProps.value.color
+					: 'white',
 		}),
 	}
 
