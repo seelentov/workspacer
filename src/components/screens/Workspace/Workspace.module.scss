@@ -1,0 +1,15 @@
+.page{
+  padding: 10px;
+  display: grid;
+  gap: 10px;
+  @media(max-width: 1300px){
+    grid-template-columns: 1fr 1fr !important;
+  }
+  @media(max-width: 767px){
+    grid-template-columns: 1fr !important;
+  }
+
+  hr{
+    margin: 20px 0 !important;
+  }
+}

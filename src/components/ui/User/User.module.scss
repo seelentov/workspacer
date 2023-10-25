@@ -1,0 +1,20 @@
+.userItemInfo{
+  height: 100%;
+}
+
+.userItem{
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  *{
+    width: 100%;
+    color: black;
+    min-width: 10px;
+  }
+  p{
+    
+    text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+  }
+}

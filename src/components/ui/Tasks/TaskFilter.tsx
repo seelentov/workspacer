@@ -9,18 +9,23 @@ import {
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Select from 'react-select'
-import { TASK_STATUSES_SELECT } from '../../../config/tasks.config'
+import {
+	PROJECTS_STATUSES_SELECT,
+	TASK_STATUSES_SELECT,
+} from '../../../config/tasks.config'
 import { ITaskFilter } from '../../../types/tasks'
 import styles from './Tasks.module.scss'
 
 export interface ITaskFilterProps {
 	filterProps: ITaskFilter
 	setFilter: Dispatch<SetStateAction<ITaskFilter>>
+	type: 'tasks' | 'projects'
 }
 
 export const TaskFilter: FC<ITaskFilterProps> = ({
 	filterProps,
 	setFilter,
+  type
 }) => {
 	const startDate =
 		filterProps.fromTime === null ? null : new Date(filterProps.fromTime)
@@ -70,8 +75,10 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 		control: (provided: any, state: any) => ({
 			...provided,
 			...inputsStyles,
-      padding: '0',
-      background: state.selectProps.value ? state.selectProps.value.color : 'white'
+			padding: '0',
+			background: state.selectProps.value && state.selectProps.value.value !== 'ALL'
+				? state.selectProps.value.color
+				: 'white',
 		}),
 	}
 
@@ -113,7 +120,9 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 						status: e?.value || 'ACTIVE',
 					})
 				}
-				options={TASK_STATUSES_SELECT}
+				options={
+					type === 'tasks' ? TASK_STATUSES_SELECT : PROJECTS_STATUSES_SELECT
+				}
 				styles={CustomSelect}
 			/>
 		</div>

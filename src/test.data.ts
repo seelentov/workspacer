@@ -1,4 +1,5 @@
 import { IProject, ITask } from './types/tasks'
+import { IUserAccount } from './types/user'
 
 export const tasks: ITask[] = [
 	new ITask({
@@ -95,6 +96,7 @@ export const tasks: ITask[] = [
 
 export const projects: IProject[] = [
 	new IProject({
+		status: 'ACTIVE',
 		id: '534lhkj3h6kj3h3k21hjk42k',
 		name: 'Проект 1Проект 1 Проект 1 Проект 1Проект 1Проект 1Проект 1Проект 1Проект 1Проект 1Проект 1Проект 1',
 		tasks: [
@@ -107,5 +109,17 @@ export const projects: IProject[] = [
 		text: 'Текст задачи',
 		initiator: 'ukBeAa8CzcMZR7UfJrhple9jPE73',
 		comments: [],
+	}),
+]
+
+export const users: IUserAccount[] = [
+	new IUserAccount({
+		birth: '1995-08-22',
+		email: 'admin@test.ru',
+		id: 'ukBeAa8CzcMZR7UfJrhple9jPE73',
+		img: '/src/assets/no-img-account.jpg',
+		name: 'Алексей Подилько',
+		position: 'Проект - менеджер',
+		tasks: ['13jkh4j324jk23kj42'],
 	}),
 ]

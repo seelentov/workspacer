@@ -4,6 +4,7 @@ import { THEME } from '../../../config/theme.config'
 import styles from './Header.module.scss'
 import { HeaderSearch } from './HeaderSearch'
 import { Navbar } from './Navbar'
+import { HeaderLogo } from './HeaderLogo'
 
 export interface IHeaderProps {}
 
@@ -25,8 +26,4 @@ export const Header: FC<IHeaderProps> = () => {
 			</div>
 		</header>
 	)
-}
-
-const HeaderLogo = () => {
-	return <div className={styles.logo}>WorkSpacer</div>
 }

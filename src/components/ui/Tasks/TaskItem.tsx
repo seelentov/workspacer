@@ -15,12 +15,12 @@ export interface ITaskItemProps {
 
 export const TaskItem: FC<ITaskItemProps> = ({ task }) => {
 	return (
-		<MDBCard style={{border: '1px grey solid'}}>
+		<MDBCard style={{ border: '1px grey solid' }}>
 			<div className={styles.taskItem}>
 				<TaskPerformers usersID={task.performers} />
 				<div className={styles.taskItemInfo}>
 					<Link to={ROUTING.TASKS + task.id}>
-						<p className={styles.taskItemName}>{task.name}</p>
+						<p>{task.name}</p>
 					</Link>
 					<div className={styles.taskItemBottom}>
 						<TaskStatus status={task.status} />

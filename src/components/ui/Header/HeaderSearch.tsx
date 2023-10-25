@@ -1,23 +1,29 @@
 import SearchIcon from '@mui/icons-material/Search'
-import { useEffect, useState } from 'react'
-import { filter } from '../../../config/header.config'
+import { FC, useEffect, useState } from 'react'
 import { subscribeColl } from '../../../store/api/firebase/endpoints'
-import { tasks } from '../../../test.data'
-import { ITask } from '../../../types/tasks'
-import styles from './Header.module.scss'
+import { projects, tasks, users } from '../../../test.data'
+import { IProject, ITask } from '../../../types/tasks'
+import { IUserAccount } from '../../../types/user'
+import { ProjectItemMin } from '../Tasks/ProjectItemMin'
 import { TaskItemMin } from '../Tasks/TaskItemMin'
+import { UserMin } from '../User/UserMin'
+import styles from './Header.module.scss'
+
+type IFilterFunc = <T extends IProject | ITask | IUserAccount>(
+	data: T[],
+	input: string
+) => T[]
 
 export const HeaderSearch = () => {
 	const [input, setInput] = useState<string | ''>('')
 	const [open, setOpen] = useState<boolean>(false)
-  const [data, setData] = useState<ITask[]>()
 
-
-  useEffect(()=>{
-    subscribeColl('tasks', (r: ITask[])=>{
-      setData(tasks)
-    })
-  }, [])
+	const filter: IFilterFunc = (data, input) => {
+		return data?.filter(e => {
+			if (!input) return
+			return e.name.toLowerCase().trim().includes(input.toLowerCase().trim())
+		})
+	}
 
 	return (
 		<>
@@ -30,22 +36,72 @@ export const HeaderSearch = () => {
 					id='serach'
 					name='search'
 					value={input}
-          onClick={()=>{if(input) setOpen(true)}}
+					onClick={() => {
+						if (input) setOpen(true)
+					}}
 					onChange={e => {
-            setInput(e.target.value)
-            if(input) setOpen(true)
-          }}
+						setInput(e.target.value)
+						if (input) setOpen(true)
+					}}
 				/>
 			</div>
 			<div
 				className={styles.searchItems}
 				style={{ display: open ? 'block' : 'none' }}
 			>
-				{data &&
-					filter(data, input).map((item: ITask) => <TaskItemMin task={item} />)}
+				<HeaderSearchBlock
+					filterFunc={filter}
+					dataType={'tasks'}
+					filterInput={input}
+				/>
+				<HeaderSearchBlock
+					filterFunc={filter}
+					dataType={'projects'}
+					filterInput={input}
+				/>
+				<HeaderSearchBlock
+					filterFunc={filter}
+					dataType={'users'}
+					filterInput={input}
+				/>
 			</div>
 		</>
 	)
 }
 
+const HeaderSearchBlock: FC<{
+	filterInput: string
+	dataType: 'tasks' | 'users' | 'projects'
+	filterFunc: IFilterFunc
+}> = ({ filterInput, dataType, filterFunc }) => {
+	const [data, setData] = useState<(IProject | ITask | IUserAccount)[]>()
 
+	useEffect(() => {
+		subscribeColl(dataType, r => {
+			setData(
+				dataType === 'tasks'
+					? tasks
+					: dataType === 'projects'
+					? projects
+					: users
+			)
+		})
+	}, [])
+
+	return (
+		<div style={{ padding: '10px' }}>
+			<h5>{dataType.toUpperCase()}</h5>
+			{data && dataType === 'tasks'
+				? filterFunc(data, filterInput)?.map((item: ITask, key) => (
+						<TaskItemMin key={key} task={item} />
+				))
+				: dataType === 'users'
+				? filterFunc(data, filterInput)?.map((item: IUserAccount, key) => (
+						<UserMin key={key} user={item} />
+				))
+				: filterFunc(data, filterInput)?.map((item: IProject, key) => (
+						<ProjectItemMin key={key} project={item} />
+				))}
+		</div>
+	)
+}

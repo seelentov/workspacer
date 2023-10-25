@@ -1,16 +1,16 @@
 import { FC, useState } from 'react'
-import { ITask, ITaskFilter } from '../../../types/tasks'
+import { IProject, ITaskFilter } from '../../../types/tasks'
+import { ProjectItem } from './ProjectItem'
 import { TaskFilter } from './TaskFilter'
-import { TaskItem } from './TaskItem'
 import styles from './Tasks.module.scss'
 
-export interface ITaskListProps {
-	data: ITask[]
+export interface IProjectsListProps {
+	data: IProject[]
 	grid: number
 	filterable?: boolean
 }
 
-export const TaskList: FC<ITaskListProps> = ({
+export const ProjectsList: FC<IProjectsListProps> = ({
 	data,
 	grid,
 	filterable = false,
@@ -26,7 +26,7 @@ export const TaskList: FC<ITaskListProps> = ({
 
 	if (!data) return
 
-	const filteredData = (data: ITask[], filterProps: ITaskFilter) => {
+	const filteredData = (data: IProject[], filterProps: ITaskFilter) => {
 		return data
 			.filter(e => {
 				return (
@@ -55,13 +55,9 @@ export const TaskList: FC<ITaskListProps> = ({
 	}
 
 	return (
-		<div style={{ width: '100%' }}>
+		<>
 			{filterable && (
-				<TaskFilter
-					filterProps={filterProps}
-					setFilter={setFilter}
-					type='tasks'
-				/>
+				<TaskFilter filterProps={filterProps} setFilter={setFilter} type="projects"/>
 			)}
 
 			<div
@@ -70,12 +66,12 @@ export const TaskList: FC<ITaskListProps> = ({
 			>
 				{data && filterProps
 					? filteredData(data, filterProps).map((e, key) => (
-							<TaskItem key={key} task={e} />
-					))
+							<ProjectItem key={key} task={e} />
+				))
 					: data
 							.sort((a, b) => b.createTime - a.createTime)
-							.map((e, key) => <TaskItem key={key} task={e} />)}
+							.map((e, key) => <ProjectItem key={key} task={e} />)}
 			</div>
-		</div>
+		</>
 	)
 }

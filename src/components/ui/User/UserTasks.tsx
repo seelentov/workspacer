@@ -18,7 +18,7 @@ export const UserTasks: FC<IProfileTasksProps> = ({ tasksID, grid }) => {
 	}, [tasksID])
 
 	return (
-		<div>
+<>
 			{data && (
 				<TaskList
 					filterable
@@ -26,6 +26,6 @@ export const UserTasks: FC<IProfileTasksProps> = ({ tasksID, grid }) => {
 					grid={grid}
 				/>
 			)}
-		</div>
+		</>
 	)
 }

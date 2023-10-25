@@ -2,27 +2,25 @@ import { MDBCard } from 'mdb-react-ui-kit'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTING } from '../../../config/routing.config'
-import { ITask } from '../../../types/tasks'
+import { IProject } from '../../../types/tasks'
 import { TaskDate } from './TaskDate'
-import { TaskProject } from './TaskProject'
 import { TaskStatus } from './TaskStatus'
 import styles from './Tasks.module.scss'
 
-export interface ITaskItemMinProps {
-	task: ITask
+export interface IProjectItemMinProps {
+	project: IProject
 }
 
-export const TaskItemMin: FC<ITaskItemMinProps> = ({ task }) => {
+export const ProjectItemMin: FC<IProjectItemMinProps> = ({ project }) => {
 	return (
 		<MDBCard style={{ border: '1px grey solid' }}>
 			<div className={styles.taskItem}>
 				<div className={styles.taskItemInfo}>
-					<Link to={ROUTING.TASKS + task.id}>
-						<p>{task.name}</p>
+					<Link to={ROUTING.TASKS + project.id}>
+						<p>{project.name}</p>
 					</Link>
-					<TaskStatus status={task.status} />
-					<TaskProject project={task.project} />
-					<TaskDate endTime={task.endTime} createTime={task.createTime} />
+					<TaskStatus status={project.status} />
+					<TaskDate endTime={project.endTime} createTime={project.createTime} />
 				</div>
 			</div>
 		</MDBCard>
