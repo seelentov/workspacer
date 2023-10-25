@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-import { UserStore } from '../types/user'
+import { UserStore } from '../../types/user'
 
 export const setCookieLogin = ({ id, token }: UserStore) => {
 	Cookies.set('id', id)

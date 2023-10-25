@@ -64,3 +64,29 @@ overflow: hidden;
   background: rgb(182, 182, 182);padding: 0 5px;
   border-radius: 10px;
 }
+
+.filter{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 50px;
+  gap: 20px;
+  @media(max-width: 767px){
+    grid-template-columns: 1fr;
+    height: 139px;
+    gap: 0;
+  }
+}
+
+.filterDatePicker{
+  text-align: left;
+  width: 100%;
+  background-color: #ffffff;
+  border: 0;
+  border-radius: 4px;
+  color: #000000;
+  cursor: pointer;
+  font: inherit;
+  padding: 5px 15px;
+  border: 1px solid rgb(171, 171, 171);
+  text-wrap: nowrap;
+}

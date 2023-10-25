@@ -6,14 +6,14 @@ import { SIGN_ERRORS } from '../../../config/login.config'
 import { ROUTING } from '../../../config/routing.config'
 import { THEME } from '../../../config/theme.config'
 import { useActions } from '../../../hooks/useActions'
-import { UserLogin } from '../../../types/user'
+import { IUserLogin } from '../../../types/user'
 import styles from './Auth.module.scss'
 
 export const Login: FC<{
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ setLoading }) => {
-	const [inputs, setInputs] = useState<UserLogin>(
-		new UserLogin(UserLogin.EMPTY)
+	const [inputs, setInputs] = useState<IUserLogin>(
+		new IUserLogin(IUserLogin.EMPTY)
 	)
 	const [denied, setDenied] = useState<boolean>(false)
 

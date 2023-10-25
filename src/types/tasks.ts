@@ -1,6 +1,6 @@
 import { Statuses } from "../config/tasks.config"
 
-export class Task {
+export class ITask {
   public id: string
   public name: string
   public project: string
@@ -11,9 +11,9 @@ export class Task {
   public text: string
   public performers: string[]
   public initiator: string
-  public comments: TaskComment[] | []
+  public comments: ITaskComment[] | []
 
-  constructor(dt: Task){
+  constructor(dt: ITask){
     this.id = dt.id
     this.name = dt.name
     this.project = dt.project
@@ -28,13 +28,13 @@ export class Task {
   }
 }
 
-export class TaskComment {
+export class ITaskComment {
   public id: string
   public text: string
   public time: number
   public initiator: string
 
-  constructor(dt: TaskComment){
+  constructor(dt: ITaskComment){
     this.id = dt.id
     this.text = dt.text
     this.time = dt.time
@@ -43,7 +43,7 @@ export class TaskComment {
 }
 
 
-export class TaskNew {
+export class ITaskNew {
   public id: string
   public name: string
   public project: string
@@ -53,9 +53,9 @@ export class TaskNew {
   public text: string
   public performers: string[]
   public initiator: string
-  public comments: TaskComment[] | []
+  public comments: ITaskComment[] | []
 
-  constructor(dt: Task){
+  constructor(dt: ITask){
     this.id = dt.id
     this.name = dt.name
     this.project = dt.project
@@ -69,8 +69,22 @@ export class TaskNew {
   }
 }
 
+export class ITaskFilter {
+  public name: string | ''
+  public fromTime: number | null
+  public toTime: number | null
+  public status: Statuses | ''
 
-export class Project {
+
+
+  constructor(dt: ITaskFilter){
+    this.name = dt.name
+    this.fromTime = dt.fromTime
+    this.toTime = dt.toTime
+    this.status = dt.status
+  }
+}
+export class IProject {
   public id: string
   public name: string
   public tasks: string[]
@@ -78,9 +92,9 @@ export class Project {
   public endTime: number
   public text: string
   public initiator: string
-  public comments: TaskComment[] | []
+  public comments: ITaskComment[] | []
 
-  constructor(dt: Project){
+  constructor(dt: IProject){
     this.id = dt.id
     this.name = dt.name
     this.tasks = dt.tasks
@@ -91,3 +105,6 @@ export class Project {
     this.comments = dt.comments
   }
 }
+
+
+

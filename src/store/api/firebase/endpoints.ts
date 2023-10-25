@@ -18,10 +18,7 @@ type FBCondition = [string | FieldPath, WhereFilterOp, unknown]
 type CollData = (coll: string) => Promise<object[]>
 type UpData = (coll: string, item: string, props: object) => Promise<void>
 type SingleData = (coll: string, item: string) => Promise<object>
-type SomeData = (
-	coll: string,
-	condition: FBCondition
-) => Promise<object>
+type SomeData = (coll: string, condition: FBCondition) => Promise<object>
 
 export const updateData: UpData = async (
 	coll: string,
@@ -41,7 +38,7 @@ export const updateData: UpData = async (
 
 export const addToData: UpData = async (coll, item, props) => {
 	return new Promise((resolve, reject) => {
-		setDoc(doc(collection(db, coll), item), {...props})
+		setDoc(doc(collection(db, coll), item), { ...props })
 			.then(() => {
 				resolve()
 			})

@@ -5,6 +5,7 @@ import { Wrapper } from './providers/Wrapper'
 import { Workspace } from './screens/Workspace/Workspace'
 import { Header } from './ui/Header/Header'
 import { Profile } from './screens/Profile/Profile'
+import { Tasks } from './screens/Tasks/Tasks'
 
 export const App = () => {
 	return (
@@ -17,6 +18,7 @@ export const App = () => {
 							<Route path={ROUTING.WORKSPACE} element={<Workspace />} />
 							<Route path={ROUTING.PROFILE} element={<Profile />} />
 							<Route path={ROUTING.PROFILE + ':id'} element={<Profile />} />
+							<Route path={ROUTING.TASKS} element={<Tasks />} />
 						</Routes>
 					</Wrapper>
 				</AuthProvider>

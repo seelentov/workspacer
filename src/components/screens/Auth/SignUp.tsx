@@ -7,14 +7,14 @@ import { ROUTING } from '../../../config/routing.config'
 import { THEME } from '../../../config/theme.config'
 import { useActions } from '../../../hooks/useActions'
 import { addToData } from '../../../store/api/firebase/endpoints'
-import { UserNew, UserSignUp } from '../../../types/user'
+import { IUserNew, IUserSignUp } from '../../../types/user'
 import styles from './Auth.module.scss'
 
 export const SignUp: FC<{
 	setLoading: React.Dispatch<React.SetStateAction<boolean>>
 }> = ({ setLoading }) => {
-	const [inputs, setInputs] = useState<UserSignUp>(
-		new UserSignUp(UserSignUp.EMPTY)
+	const [inputs, setInputs] = useState<IUserSignUp>(
+		new IUserSignUp(IUserSignUp.EMPTY)
 	)
 	const [errors, setErrors] = useState<SIGN_ERRORS[]>([])
 	const navigate = useNavigate()
@@ -45,7 +45,7 @@ export const SignUp: FC<{
 					addToData(
 						'users',
 						user.uid,
-						new UserNew({
+						new IUserNew({
 							id: user.uid,
 							email: inputs.email,
 							name: inputs.name,

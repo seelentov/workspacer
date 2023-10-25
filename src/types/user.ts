@@ -1,6 +1,6 @@
-import { Task } from "./tasks"
+import { ITask } from './tasks'
 
-export class UserStore {
+export class IUserStore {
 	id: string | ''
 	token: string | ''
 
@@ -9,28 +9,28 @@ export class UserStore {
 		token: '',
 	}
 
-	constructor(dt: UserStore) {
+	constructor(dt: IUserStore) {
 		this.token = dt.token
 		this.id = dt.id
 	}
 }
 
-export class UserLogin {
+export class IUserLogin {
 	password: string
 	email: string
 
-  static EMPTY = {
+	static EMPTY = {
 		password: '',
 		email: '',
 	}
 
-	constructor(dt: UserLogin) {
+	constructor(dt: IUserLogin) {
 		this.password = dt.password
 		this.email = dt.email
 	}
 }
 
-export class UserSignUp {
+export class IUserSignUp {
 	password: string | ''
 	checkPass: string | ''
 	email: string | ''
@@ -38,7 +38,7 @@ export class UserSignUp {
 	birth: string | ''
 	position: string | ''
 
-  static EMPTY = {
+	static EMPTY = {
 		password: '',
 		checkPass: '',
 		email: '',
@@ -47,7 +47,7 @@ export class UserSignUp {
 		position: '',
 	}
 
-	constructor(dt: UserSignUp) {
+	constructor(dt: IUserSignUp) {
 		this.password = dt.password
 		this.checkPass = dt.checkPass
 		this.name = dt.name
@@ -57,14 +57,14 @@ export class UserSignUp {
 	}
 }
 
-export class UserAccount {
+export class IUserAccount {
 	name: string
 	img: string
 	id: string
 	email: string
 	birth: string
 	position: string
-  tasks: string[]
+	tasks: string[]
 
 	static EMPTY = {
 		name: '',
@@ -75,7 +75,7 @@ export class UserAccount {
 		position: '',
 	}
 
-	constructor(dt: UserAccount) {
+	constructor(dt: IUserAccount) {
 		this.name = dt.name
 		this.img = dt.img
 		this.id = dt.id
@@ -86,16 +86,15 @@ export class UserAccount {
 	}
 }
 
-
-export type UserProfileInfo = 'name' | 'birth' | 'position' | 'email' | 'id'
-export class UserNew {
+export type IUserProfileInfo = 'name' | 'birth' | 'position' | 'email' | 'id'
+export class IUserNew {
 	name: string
 	img?: string | '/src/assets/no-img-account.jpg'
 	id: string
 	email: string
 	birth: string
 	position: string
-  tasks?: Task[] | []
+	tasks?: ITask[] | []
 
 	static EMPTY = {
 		name: '',
@@ -105,14 +104,14 @@ export class UserNew {
 		birth: '',
 		position: '',
 	}
-  
-	constructor(dt: UserNew) {
+
+	constructor(dt: IUserNew) {
 		this.name = dt.name
 		this.img = '/src/assets/no-img-account.jpg'
 		this.id = dt.id
 		this.email = dt.email
 		this.birth = dt.birth
 		this.position = dt.position
-    this.tasks = []
+		this.tasks = []
 	}
 }

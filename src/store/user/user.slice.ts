@@ -1,8 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { clearCookieLogin, setCookieLogin } from '../../service/cookieLogin'
-import { UserStore } from '../../types/user'
+import {
+	clearCookieLogin,
+	setCookieLogin,
+} from '../../hooks/service/cookieLogin'
+import { IUserStore } from '../../types/user'
 
-const initialState: UserStore = {
+const initialState: IUserStore = {
 	token: '',
 	id: '',
 }
@@ -15,10 +18,10 @@ export const userSlice = createSlice({
 			state.token = inputs.token
 			state.id = inputs.id
 
-      const user = new UserStore(inputs)
+			const user = new IUserStore(inputs)
 			setCookieLogin(user)
 		},
-    setOnlyUser: (state, { payload: inputs }) => {
+		setOnlyUser: (state, { payload: inputs }) => {
 			state.token = inputs.token
 			state.id = inputs.id
 		},
