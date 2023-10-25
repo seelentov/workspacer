@@ -14,14 +14,14 @@ export const Header: FC<IHeaderProps> = () => {
 			<div
 				className={styles.wrapper}
 				style={{ display: open ? 'block' : 'none' }}
-        onClick={() => setOpen(!open)}
+				onClick={() => setOpen(!open)}
 			></div>
 			<div className={styles.line} style={{ background: THEME.ALT_COLOR }}>
 				<Navbar open={open} setOpen={setOpen} menu={MENU} />
 				<HeaderLogo />
-        <div className={styles.headerSearch}>
-				<HeaderSearch />
-        </div>
+				<div className={styles.headerSearch}>
+					<HeaderSearch />
+				</div>
 			</div>
 		</header>
 	)

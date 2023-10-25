@@ -5,9 +5,9 @@ import { useStoreBy } from '../../../hooks/useStoreBy'
 import { subscribeData } from '../../../store/api/firebase/endpoints'
 import { IUserAccount } from '../../../types/user'
 import { Loading } from '../../ui/Loading/Loading'
+import { UserInfo } from '../../ui/User/UserInfo'
 import { UserTasks } from '../../ui/User/UserTasks'
 import styles from './Profile.module.scss'
-import { UserInfo } from '../../ui/User/UserInfo'
 
 export interface IProfileProps {}
 
@@ -41,8 +41,8 @@ export const Profile: FC<IProfileProps> = () => {
 					</MDBRow>
 					<MDBRow>
 						<MDBCol>
-							<MDBCard style={{ minHeight: '100%', padding: '10px' }}>
-								<UserTasks tasksID={user.tasks} grid={2}/>
+							<MDBCard style={{ minHeight: '100%', padding: '10px',  }} className={styles.info}>
+								<UserTasks tasksID={user.tasks} grid={2} />
 							</MDBCard>
 						</MDBCol>
 					</MDBRow>

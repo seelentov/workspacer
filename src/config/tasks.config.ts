@@ -78,7 +78,7 @@ export const TASK_STATUSES_SELECT: ITaskStatus[] = [
     label: 'ACTIVE'
   },
   {
-    color: 'black',
+    color: 'pink',
     value: 'ALL',
     label: 'ALL'
   }
@@ -86,3 +86,29 @@ export const TASK_STATUSES_SELECT: ITaskStatus[] = [
 
 
 
+
+export type ProdStatuses = 'DONE' | 'LOADING' | 'ACTIVE' | 'ALL'
+
+
+export const PROD_STATUSES_SELECT: ITaskStatus[] = [
+  {
+    color: 'green',
+    value: 'DONE',
+    label: 'DONE'
+  },
+  {
+    color: 'gray',
+    value: 'LOADING',
+    label: 'LOADING'
+  },
+  {
+    color: 'blue',
+    value: 'ACTIVE',
+    label: 'ACTIVE'
+  },
+  {
+    color: 'black',
+    value: 'ALL',
+    label: 'ALL'
+  }
+]

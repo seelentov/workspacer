@@ -43,12 +43,15 @@ export const TaskList: FC<ITaskListProps> = ({
 				)
 			})
 			.filter(e => {
-				return filterProps.toTime === null || e.createTime - 86400000 <= filterProps.toTime
+				return (
+					filterProps.toTime === null ||
+					e.createTime - 86400000 <= filterProps.toTime
+				)
 			})
 			.filter(e => {
 				return e.status === filterProps.status || filterProps.status === 'ALL'
 			})
-      .sort((a, b) => b.createTime - a.createTime)
+			.sort((a, b) => b.createTime - a.createTime)
 	}
 
 	return (
@@ -64,7 +67,7 @@ export const TaskList: FC<ITaskListProps> = ({
 				{data && filterProps
 					? filteredData(data, filterProps).map((e, key) => (
 							<TaskItem key={key} task={e} />
-				))
+		))
 					: data
 							.sort((a, b) => b.createTime - a.createTime)
 							.map((e, key) => <TaskItem key={key} task={e} />)}

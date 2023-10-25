@@ -93,6 +93,8 @@ export class IProject {
   public text: string
   public initiator: string
   public comments: ITaskComment[] | []
+  public status: Statuses
+  
 
   constructor(dt: IProject){
     this.id = dt.id
@@ -103,6 +105,7 @@ export class IProject {
     this.text = dt.text
     this.initiator = dt.initiator
     this.comments = dt.comments
+    this.status = dt.status
   }
 }
 

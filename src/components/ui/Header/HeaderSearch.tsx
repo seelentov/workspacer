@@ -1,19 +1,21 @@
 import SearchIcon from '@mui/icons-material/Search'
-import { FC, useEffect, useState } from 'react'
-import { Task } from '../../../types/tasks'
-import styles from './Header.module.scss'
+import { useEffect, useState } from 'react'
 import { filter } from '../../../config/header.config'
 import { subscribeColl } from '../../../store/api/firebase/endpoints'
+import { tasks } from '../../../test.data'
+import { ITask } from '../../../types/tasks'
+import styles from './Header.module.scss'
+import { TaskItemMin } from '../Tasks/TaskItemMin'
 
 export const HeaderSearch = () => {
 	const [input, setInput] = useState<string | ''>('')
 	const [open, setOpen] = useState<boolean>(false)
-  const [data, setData] = useState<Task[]>()
+  const [data, setData] = useState<ITask[]>()
 
 
   useEffect(()=>{
-    subscribeColl('tasks', (r: Task[])=>{
-      setData(r)
+    subscribeColl('tasks', (r: ITask[])=>{
+      setData(tasks)
     })
   }, [])
 
@@ -40,16 +42,10 @@ export const HeaderSearch = () => {
 				style={{ display: open ? 'block' : 'none' }}
 			>
 				{data &&
-					filter(data, input).map((item: Task) => <HeaderSearchItem item={item} />)}
+					filter(data, input).map((item: ITask) => <TaskItemMin task={item} />)}
 			</div>
 		</>
 	)
 }
 
-export const HeaderSearchItem: FC<{ item: Task }> = ({ item }) => {
-	return (
-		<div className={styles.task}>
-			<p>{item.name}</p>
-		</div>
-	)
-}
+

@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTING } from '../../../config/routing.config'
 import { projects } from '../../../test.data'

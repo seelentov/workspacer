@@ -8,10 +8,7 @@ export interface IProfileTasksProps {
 	grid: number
 }
 
-export const UserTasks: FC<IProfileTasksProps> = ({
-	tasksID,
-	grid
-}) => {
+export const UserTasks: FC<IProfileTasksProps> = ({ tasksID, grid }) => {
 	const [data, setData] = useState<ITask[]>()
 
 	useEffect(() => {
@@ -22,7 +19,6 @@ export const UserTasks: FC<IProfileTasksProps> = ({
 
 	return (
 		<div>
-			
 			{data && (
 				<TaskList
 					filterable

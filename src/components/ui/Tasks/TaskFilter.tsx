@@ -1,4 +1,3 @@
-import { MDBInput } from 'mdb-react-ui-kit'
 import {
 	Dispatch,
 	FC,
@@ -30,6 +29,17 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 
 	const ref = useRef()
 
+	const inputsStyles = {
+		padding: '0 10px',
+		textAlign: 'left',
+		color: '#000000',
+		width: '100%',
+		backgroundColor: 'white',
+		height: '50px',
+		borderRadius: '10px',
+		border: '1px gray solid',
+	}
+
 	const CustomDatePicker = forwardRef(
 		(
 			{
@@ -43,7 +53,7 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 			},
 			ref
 		) => (
-			<button ref={ref} className={styles.filterDatePicker} onClick={onClick}>
+			<button className={styles.datePicker} ref={ref} onClick={onClick}>
 				{value || 'Дата задачи'}
 			</button>
 		)
@@ -56,37 +66,47 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 			backgroundColor: state.data.color,
 			color: 'white',
 		}),
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		control: (provided: any, state: any) => ({
+			...provided,
+			...inputsStyles,
+      padding: '0',
+      background: state.selectProps.value ? state.selectProps.value.color : 'white'
+		}),
 	}
 
 	return (
 		<div className={styles.filter}>
-			<MDBInput
-				style={{ background: 'white', height: '37px' }}
-				label='Имя задачи'
+			<input
+				placeholder={'Имя задачи'}
+				style={inputsStyles}
 				type='text'
 				data-attr='name'
 				value={filterProps.name}
 				onChange={e => setFilter({ ...filterProps, name: e.target.value })}
 			/>
-
-			<DatePicker
-      wrapperClass="mb-4"
-				selectsRange={true}
-				startDate={startDate}
-				endDate={endDate}
-				onChange={update => {
-					setFilter({
-						...filterProps,
-						toTime: update[1]?.getTime() || null,
-						fromTime: update[0]?.getTime() || null,
-					})
-				}}
-				isClearable={true}
-				customInput={createElement(CustomDatePicker)}
-				ref={ref}
-			/>
-
+			<div style={inputsStyles}>
+				<DatePicker
+					wrapperClassName={styles.datePicker}
+					data-attr='date'
+					selectsRange={true}
+					startDate={startDate}
+					endDate={endDate}
+					onChange={update => {
+						setFilter({
+							...filterProps,
+							toTime: update[1]?.getTime() || null,
+							fromTime: update[0]?.getTime() || null,
+						})
+					}}
+					isClearable={true}
+					customInput={createElement(CustomDatePicker)}
+					ref={ref}
+				/>
+			</div>
 			<Select
+				placeholder={<div>Статус задачи</div>}
+				data-attr='status'
 				onChange={e =>
 					setFilter({
 						...filterProps,
