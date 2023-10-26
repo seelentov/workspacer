@@ -21,12 +21,14 @@ export interface ITaskFilterProps {
 	filterProps: ITaskFilter
 	setFilter: Dispatch<SetStateAction<ITaskFilter>>
 	type: 'tasks' | 'projects'
+  setPage: Dispatch<SetStateAction<number>>
 }
 
 export const TaskFilter: FC<ITaskFilterProps> = ({
 	filterProps,
 	setFilter,
 	type,
+  setPage
 }) => {
 	const startDate =
 		filterProps.fromTime === null ? null : new Date(filterProps.fromTime)
@@ -44,6 +46,9 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 		height: '50px',
 		borderRadius: '10px',
 		border: '1px gray solid',
+    '&:hover': {
+      borderColor: 'none'
+    }
 	}
 
 	const CustomDatePicker = forwardRef(
@@ -81,6 +86,7 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 				state.selectProps.value && state.selectProps.value.value !== 'ALL'
 					? state.selectProps.value.color
 					: 'white',
+
 		}),
 	}
 
@@ -92,7 +98,9 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 				type='text'
 				data-attr='name'
 				value={filterProps.name}
-				onChange={e => setFilter({ ...filterProps, name: e.target.value })}
+				onChange={e => {
+          setPage(1)
+          setFilter({ ...filterProps, name: e.target.value })}}
 			/>
 			<div style={inputsStyles}>
 				<DatePicker
@@ -102,6 +110,7 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 					startDate={startDate}
 					endDate={endDate}
 					onChange={update => {
+            setPage(1)
 						setFilter({
 							...filterProps,
 							toTime: update[1]?.getTime() || null,
@@ -117,10 +126,11 @@ export const TaskFilter: FC<ITaskFilterProps> = ({
 				placeholder={<div>Статус задачи</div>}
 				data-attr='status'
 				onChange={e =>
+          {setPage(1)
 					setFilter({
 						...filterProps,
 						status: e?.value || 'ACTIVE',
-					})
+					})}
 				}
 				options={
 					type === 'tasks' ? TASK_STATUSES_SELECT : PROJECTS_STATUSES_SELECT

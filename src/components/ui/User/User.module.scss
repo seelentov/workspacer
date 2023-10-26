@@ -1,5 +1,7 @@
 .userItemInfo{
   height: 100%;
+  margin: auto 0;
+  min-height: 420px;
 }
 
 .userItem{
@@ -12,9 +14,14 @@
     min-width: 10px;
   }
   p{
-    
+    margin: auto 0;
     text-overflow: ellipsis;
-white-space: nowrap;
+white-space: wrap;
 overflow: hidden;
   }
+}
+
+.info{
+  height: 1px;
+  min-height: 420px;
 }

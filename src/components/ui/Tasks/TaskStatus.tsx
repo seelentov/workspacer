@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { TASK_STATUSES, Statuses } from '../../../config/tasks.config'
+import { Statuses, TASK_STATUSES } from '../../../config/tasks.config'
 import styles from './Tasks.module.scss'
 
 export interface ITaskStatusProps {

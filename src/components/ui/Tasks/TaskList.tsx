@@ -1,19 +1,24 @@
 import { FC, useState } from 'react'
-import { ITask, ITaskFilter } from '../../../types/tasks'
+import { IProject, ITask, ITaskFilter } from '../../../types/tasks'
+import { ListPagination } from './ListPagination'
 import { TaskFilter } from './TaskFilter'
 import { TaskItem } from './TaskItem'
 import styles from './Tasks.module.scss'
 
-export interface ITaskListProps {
-	data: ITask[]
+export interface IProjectsListProps {
+	data: IProject[] | ITask[]
 	grid: number
 	filterable?: boolean
+	paginationItems?: number
+	dataType: 'projects' | 'tasks'
 }
 
-export const TaskList: FC<ITaskListProps> = ({
+export const TaskList: FC<IProjectsListProps> = ({
 	data,
 	grid,
+	dataType,
 	filterable = false,
+	paginationItems = 10,
 }) => {
 	const [filterProps, setFilter] = useState<ITaskFilter>(
 		new ITaskFilter({
@@ -24,10 +29,21 @@ export const TaskList: FC<ITaskListProps> = ({
 		})
 	)
 
+	const [page, setPage] = useState<number>(1)
+
 	if (!data) return
 
-	const filteredData = (data: ITask[], filterProps: ITaskFilter) => {
+	const paginationSlice = [
+		0 + paginationItems * (page - 1),
+		paginationItems + paginationItems * (page - 1),
+	]
+
+	const filteredData = (
+		data: IProject[] | ITask[],
+		filterProps: ITaskFilter
+	) => {
 		return data
+			.sort((a, b) => b.createTime - a.createTime)
 			.filter(e => {
 				return (
 					e.name
@@ -51,16 +67,16 @@ export const TaskList: FC<ITaskListProps> = ({
 			.filter(e => {
 				return e.status === filterProps.status || filterProps.status === 'ALL'
 			})
-			.sort((a, b) => b.createTime - a.createTime)
 	}
 
 	return (
-		<div style={{ width: '100%' }}>
+		<div className={styles.taskListWrapper}>
 			{filterable && (
 				<TaskFilter
 					filterProps={filterProps}
 					setFilter={setFilter}
-					type='tasks'
+					type={dataType}
+          setPage={setPage}
 				/>
 			)}
 
@@ -68,14 +84,26 @@ export const TaskList: FC<ITaskListProps> = ({
 				className={styles.taskList}
 				style={{ gridTemplateColumns: `repeat(${grid}, 1fr)` }}
 			>
-				{data && filterProps
-					? filteredData(data, filterProps).map((e, key) => (
-							<TaskItem key={key} task={e} />
-					))
-					: data
-							.sort((a, b) => b.createTime - a.createTime)
-							.map((e, key) => <TaskItem key={key} task={e} />)}
+				{filteredData(data, filterProps)
+					.slice(...paginationSlice)
+					.map((e, key) => (
+						<TaskItem
+							key={key}
+							task={e}
+							type={dataType === 'projects' ? 'project' : 'task'}
+						/>
+					))}
 			</div>
+			{data && (
+				<ListPagination
+					page={page}
+					setPage={setPage}
+					total={
+						filterProps ? filteredData(data, filterProps).length : data.length
+					}
+					paginationItems={paginationItems}
+				/>
+			)}
 		</div>
 	)
 }

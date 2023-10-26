@@ -41,9 +41,7 @@ export const Profile: FC<IProfileProps> = () => {
 					</MDBRow>
 					<MDBRow>
 						<MDBCol>
-							<MDBCard style={{ minHeight: '100%', padding: '10px',  }} className={styles.info}>
-								<UserTasks tasksID={user.tasks} grid={2} />
-							</MDBCard>
+							<UserTasks tasksID={user.tasks} grid={2} />
 						</MDBCol>
 					</MDBRow>
 				</div>

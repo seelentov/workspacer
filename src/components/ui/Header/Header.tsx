@@ -2,9 +2,9 @@ import { FC, useState } from 'react'
 import { MENU } from '../../../config/header.config'
 import { THEME } from '../../../config/theme.config'
 import styles from './Header.module.scss'
+import { HeaderLogo } from './HeaderLogo'
 import { HeaderSearch } from './HeaderSearch'
 import { Navbar } from './Navbar'
-import { HeaderLogo } from './HeaderLogo'
 
 export interface IHeaderProps {}
 

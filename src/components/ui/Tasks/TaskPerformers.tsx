@@ -13,9 +13,13 @@ export const TaskPerformers: FC<ITaskPerformersProps> = ({ usersID }) => {
 	const [users, setUsers] = useState<IUserAccount[]>()
 
 	useEffect(() => {
-		subscribeSomeData('users', ['id', 'in', usersID], (data: IUserAccount[]) => {
-			setUsers(data)
-		})
+		subscribeSomeData(
+			'users',
+			['id', 'in', usersID],
+			(data: IUserAccount[]) => {
+				setUsers(data)
+			}
+		)
 	}, [])
 
 	return (

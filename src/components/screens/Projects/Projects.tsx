@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { projects } from '../../../test.data'
 import { IProject } from '../../../types/tasks'
 import { Loading } from '../../ui/Loading/Loading'
-import { ProjectsList } from '../../ui/Tasks/ProjectsList'
+import { TaskList } from '../../ui/Tasks/TaskList'
 import styles from './Projects.module.scss'
 
 export const Projects = () => {
@@ -16,7 +16,7 @@ export const Projects = () => {
 		<>
 			{data ? (
 				<div className={styles.page}>
-					<ProjectsList data={data} grid={3} filterable />
+					<TaskList data={data} grid={3} filterable dataType={'projects'} />
 				</div>
 			) : (
 				<Loading />

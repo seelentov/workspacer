@@ -16,7 +16,7 @@ export const Tasks = () => {
 		<>
 			{data ? (
 				<div className={styles.page}>
-					<TaskList data={data} grid={3} filterable />
+					<TaskList data={data} grid={3} filterable dataType={'tasks'} />
 				</div>
 			) : (
 				<Loading />

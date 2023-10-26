@@ -10,9 +10,10 @@ import styles from './Tasks.module.scss'
 
 export interface ITaskItemMinProps {
 	task: ITask
+	dataType: 'task' | 'project'
 }
 
-export const TaskItemMin: FC<ITaskItemMinProps> = ({ task }) => {
+export const TaskItemMin: FC<ITaskItemMinProps> = ({ task, dataType }) => {
 	return (
 		<MDBCard style={{ border: '1px grey solid' }}>
 			<div className={styles.taskItem}>
@@ -21,7 +22,7 @@ export const TaskItemMin: FC<ITaskItemMinProps> = ({ task }) => {
 						<p>{task.name}</p>
 					</Link>
 					<TaskStatus status={task.status} />
-					<TaskProject project={task.project} />
+					{dataType === 'task' && <TaskProject project={task.project} />}
 					<TaskDate endTime={task.endTime} createTime={task.createTime} />
 				</div>
 			</div>

@@ -4,7 +4,6 @@ import { subscribeColl } from '../../../store/api/firebase/endpoints'
 import { projects, tasks, users } from '../../../test.data'
 import { IProject, ITask } from '../../../types/tasks'
 import { IUserAccount } from '../../../types/user'
-import { ProjectItemMin } from '../Tasks/ProjectItemMin'
 import { TaskItemMin } from '../Tasks/TaskItemMin'
 import { UserMin } from '../User/UserMin'
 import styles from './Header.module.scss'
@@ -89,10 +88,16 @@ const HeaderSearchBlock: FC<{
 		<div style={{ padding: '10px' }}>
 			<h5>{dataType.toUpperCase()}</h5>
 			{data &&
-				dataType === 'tasks' &&
+				dataType !== 'users' &&
 				filterFunc(data, filterInput).map((item: ITask, key) => {
 					if (!item) return null
-					return <TaskItemMin key={key} task={item} />
+					return (
+						<TaskItemMin
+							key={key}
+							task={item}
+							dataType={dataType === 'tasks' ? 'task' : 'project'}
+						/>
+					)
 				})}
 			{data &&
 				dataType === 'users' &&
